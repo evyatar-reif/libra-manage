@@ -1,0 +1,29 @@
+.App {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* LOGIN PAGE STYLES */
+.login-page-container{
+  display: flex;
+  flex-direction: row;
+  gap:15px;
+}
+/* PROFILE CARD STYLES */
+.profile-card-container{
+  height: 100px;
+  width: 100px;
+  padding: 10px;
+  border: black solid 0.5px;
+  border-radius: 15px;
+}
+.profile-card-img{
+  height: 85px;
+  width:85px;
+}
+.profile-card-name{
+  font-size: 15px;
+  margin: 0px;
+}
