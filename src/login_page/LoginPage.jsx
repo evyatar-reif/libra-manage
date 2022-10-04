@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
-import { Context } from "../context/profileContext";
+import { profileContext } from "../context/profileContext";
 import ProfileCard from "./ProfileCard";
 
 const LoginPage = () => {
-  const { profiles, getActiveProfile } = useContext(Context);
+  const { profiles, getActiveProfile } = useContext(profileContext);
   const activeProfile = getActiveProfile();
   const elements = profiles.map((pr) => (
     <ProfileCard

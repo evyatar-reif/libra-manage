@@ -1,10 +1,10 @@
 import { createContext, useState } from "react";
 
-const Context = createContext();
+const profileContext = createContext();
 
 function ProfileContextProvider(props) {
   const [profiles, setProfiles] = useState([]);
-  const [activeProfile, setActiveProfile] = useState();
+  const [activeProfile, setActiveProfile] = useState(null);
   const [currentId, setCurrentId] = useState(0);
 
   function addProfileToContext(profile) {
@@ -21,17 +21,21 @@ function ProfileContextProvider(props) {
   function getActiveProfile() {
     return profiles[activeProfile];
   }
+  function isLoggedIn() {
+    return activeProfile != null;
+  }
   return (
-    <Context.Provider
+    <profileContext.Provider
       value={{
         profiles,
         addProfileToContext,
         updateActiveProfile,
         getActiveProfile,
+        isLoggedIn,
       }}>
       {props.children}
-    </Context.Provider>
+    </profileContext.Provider>
   );
 }
 
-export { ProfileContextProvider, Context };
+export { ProfileContextProvider, profileContext };

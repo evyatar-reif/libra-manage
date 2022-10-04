@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
-import { Context } from "../context/profileContext";
+import { profileContext } from "../context/profileContext";
 import plusLogo from "./img/plusLogo.png";
 import userLogo from "./img/userLogo.png";
 
 const ProfileCard = (props) => {
-  const { addProfileToContext, updateActiveProfile } = useContext(Context);
+  const { addProfileToContext, updateActiveProfile } =
+    useContext(profileContext);
 
   function addProfile() {
     const name = prompt("Please enter your name");
