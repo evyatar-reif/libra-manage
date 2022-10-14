@@ -3,8 +3,7 @@ import { profileContext } from "../context/profileContext";
 import ProfileCard from "./ProfileCard";
 
 const LoginPage = () => {
-  const { profiles, getActiveProfile } = useContext(profileContext);
-  const activeProfile = getActiveProfile();
+  const { profiles } = useContext(profileContext);
   const elements = profiles.map((pr) => (
     <ProfileCard
       key={pr.id}
@@ -13,7 +12,6 @@ const LoginPage = () => {
   ));
   return (
     <div>
-      <h1>{activeProfile ? activeProfile.name : "Welcome, Please login"}</h1>
       <div className="login-page-container">
         {elements}
         <ProfileCard />

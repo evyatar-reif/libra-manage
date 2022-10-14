@@ -15,8 +15,9 @@ function ProfileContextProvider(props) {
   function increaseCurrentId() {
     setCurrentId((prevId) => prevId + 1);
   }
-  function updateActiveProfile(id) {
-    setActiveProfile(id);
+  function updateActiveProfile(profile) {
+    const index = profiles.findIndex((pr) => pr.id === profile.id);
+    setActiveProfile(index);
   }
   function getActiveProfile() {
     return profiles[activeProfile];
@@ -24,6 +25,14 @@ function ProfileContextProvider(props) {
   function isLoggedIn() {
     return activeProfile != null;
   }
+  function removeProfile(profile) {
+    const newArr = profiles.filter((pr) => pr.id !== profile.id);
+    setActiveProfile(null);
+    setProfiles(newArr);
+  }
+
+  console.log(activeProfile);
+
   return (
     <profileContext.Provider
       value={{
@@ -32,6 +41,7 @@ function ProfileContextProvider(props) {
         updateActiveProfile,
         getActiveProfile,
         isLoggedIn,
+        removeProfile,
       }}>
       {props.children}
     </profileContext.Provider>
