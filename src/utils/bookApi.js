@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_KEY = "AIzaSyDOKn73aI0YUvmh_F7IELuZVq9PNinNmXg";
+const API_KEY = "";
 
 async function getBookByISBN(ISBN) {
   const URL = `https://www.googleapis.com/books/v1/volumes?q=isbn:${ISBN}&key=${API_KEY}`;
