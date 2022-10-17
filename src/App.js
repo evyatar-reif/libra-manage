@@ -13,11 +13,12 @@ function App() {
       <Header />
       <div className="main-container">
         {!isLoggedIn() ? (
-          <LoginPage />
+          <>
+            <h1>Welcome! please log in to your account</h1>
+            <LoginPage />
+          </>
         ) : (
-          <BrowserRouter>
-            <HomePage />
-          </BrowserRouter>
+          <HomePage />
         )}
       </div>
     </div>

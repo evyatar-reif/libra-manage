@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Navbar from "./navbar/Navbar";
 import LoginPage from "../login_page/LoginPage";
+import BooksPage from "../books_page/BooksPage";
 
 const HomePage = () => {
   return (
@@ -27,7 +28,7 @@ const HomePage = () => {
           <Route
             exact
             path="/book"
-            element={<div>book</div>}
+            element={<BooksPage />}
           />
         </Routes>
       </div>
