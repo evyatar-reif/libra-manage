@@ -1,13 +1,12 @@
 import axios from "axios";
 
-const API_KEY = "AIzaSyDOKn73aI0YUvmh_F7IELuZVq9PNinNmXg";
+const API_KEY = "AIzaSyAxofxoNJB9kfcdrLecAr5Oh92YP6BtdgU";
 
 async function getBookByISBN(ISBN) {
   const URL = `https://www.googleapis.com/books/v1/volumes?q=isbn:${ISBN}&key=${API_KEY}`;
 
   const promiseData = await getDataPromise(URL);
   const book = promiseData.items[0].volumeInfo;
-  // console.log(book);
   return book;
 }
 
