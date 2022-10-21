@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { getBookByISBN } from "../utils/bookApi";
 import Book from ".././components/Book.tsx";
+import { useDispatch } from "react-redux";
+import { addNewBook } from ".././redux/stockReducer";
 
 const AddBook = ({ onClose }) => {
   const [entry, setEntry] = useState("");
   const [book, setBook] = useState(null);
+  const dispatch = useDispatch();
 
   async function searchBook() {
     const resultBook = await getBookByISBN(entry);
@@ -12,6 +15,7 @@ const AddBook = ({ onClose }) => {
   }
   function addToStock() {
     console.log(book);
+    dispatch(addNewBook(book));
     onClose();
   }
   return (
