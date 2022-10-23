@@ -1,8 +1,7 @@
 import React from "react";
-import Modal from "../../components/Modal.tsx";
 
 const HomePage = () => {
-  return <div></div>;
+  return <div>HomePage</div>;
 };
 
 export default HomePage;

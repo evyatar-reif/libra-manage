@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { getBookByISBN } from "../utils/bookApi";
-import Book from ".././components/Book.tsx";
+import Book from ".././components/Book";
 import { useDispatch } from "react-redux";
 import { addNewBook } from ".././redux/stockReducer";
 
@@ -43,13 +43,16 @@ const AddBook = ({ onClose }) => {
           <button
             onClick={searchBook}
             type="button"
-            className="mt-3 w-full text-white bg-blue-700 hover:bg-blue-800 focus:outline-none font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            className="bg-secondaryOrange hover:bg-primaryOrange text-white p-3 font-bold rounded-full w-full mt-3">
             Search Book
           </button>
         </div>
         {book && (
           <>
-            <Book book={book} />
+            <Book
+              preview={true}
+              book={book}
+            />
             <button
               onClick={addToStock}
               type="button"

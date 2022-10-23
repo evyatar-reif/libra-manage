@@ -1,15 +1,15 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import Book from "./Book";
 
-const BookList = () => {
-  const stock = useSelector((state) => state).stock.stock;
-  const elements = stock.map((book) => <h1>{book.title}</h1>);
-  return (
-    <div>
-      Book list
-      {elements}
-    </div>
-  );
+const BookList = ({ books }) => {
+  const bookElements = books.map((book) => (
+    <Book
+      key={book.id}
+      book={book}
+    />
+  ));
+  return <div className="flex gap-3 content-between">{bookElements}</div>;
 };
 
 export default BookList;
