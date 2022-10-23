@@ -7,28 +7,44 @@ import BookList from "../../components/BookList";
 
 import Modal from "../../components/Modal";
 
+const INIT_FILTERS = {
+  title: null,
+  author: null,
+  minYear: 0,
+  maxYear: 3000,
+  inStock: null,
+};
+
 const StockPage = () => {
   const [modalState, setModalState] = useState({
     filter: false,
     addBook: false,
   });
-  const [filters, setFilters] = useState({
-    title: "",
-    author: "",
-    minYear: "",
-    maxYear: "",
-    inStock: false,
-  });
+  const [filters, setFilters] = useState(INIT_FILTERS);
   const stock = useSelector((state) => state).stock.stock;
   const [viewedBooks, setViewedBooks] = useState(stock);
 
   useEffect(() => {
-    console.log("re filtering");
     const newViewedBooks = stock.filter((book) =>
       isMatchingBook(book, filters)
     );
-    console.log(newViewedBooks);
     setViewedBooks(newViewedBooks);
+
+    function isMatchingBook(book, f) {
+      if (f === INIT_FILTERS) return true;
+      if (f.title && book.title.toLowerCase().includes(f.title)) return true;
+      if (f.author && book.authors[0].toLowerCase().includes(f.author))
+        return true;
+      if (f.minYear || f.maxYear) {
+        let validYear = true;
+        if (f.minYear > 0 && book.publishedDate <= f.minYear) validYear = false;
+        if (f.maxYear < 3000 && book.publishedDate >= f.maxYear)
+          validYear = false;
+        return validYear;
+      }
+      if (f.inStock && !book.isBorrowed) return true;
+      // return false;
+    }
   }, [filters, stock]);
 
   function onFilter(filters) {
@@ -50,6 +66,11 @@ const StockPage = () => {
           Filter
         </button>
         <button
+          onClick={() => setFilters(INIT_FILTERS)}
+          className="bg-secondaryOrange hover:bg-primaryOrange text-white p-3 font-bold rounded-full w-32">
+          Clear Filters
+        </button>
+        <button
           onClick={() =>
             setModalState((prevModal) => {
               return { ...prevModal, addBook: !modalState.addBook };
@@ -59,7 +80,9 @@ const StockPage = () => {
           Add Book
         </button>
       </div>
+
       <BookList books={viewedBooks} />
+
       <Modal
         closeOnOutsideClick={true}
         open={modalState.filter}
@@ -90,9 +113,5 @@ const StockPage = () => {
     </div>
   );
 };
-
-function isMatchingBook(book, filters) {
-  return true;
-}
 
 export default StockPage;

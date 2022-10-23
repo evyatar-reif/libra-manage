@@ -14,7 +14,6 @@ const AddBook = ({ onClose }) => {
     setBook(resultBook);
   }
   function addToStock() {
-    console.log(book);
     dispatch(addNewBook(book));
     onClose();
   }

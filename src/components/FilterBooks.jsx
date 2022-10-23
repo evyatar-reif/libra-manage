@@ -10,7 +10,14 @@ const FilterBooks = ({ onFilter }) => {
   });
   const [error, setError] = useState("");
   function onSubmit() {
-    onFilter(entry);
+    const finalEntry = {
+      title: entry.title ? entry.title : null,
+      author: entry.author ? entry.author : null,
+      minYear: entry.minYear ? entry.minYear : null,
+      maxYear: entry.maxYear ? entry.maxYear : null,
+      inStock: entry.inStock ? entry.inStock : null,
+    };
+    onFilter(finalEntry);
   }
   function onClear() {
     setEntry({
