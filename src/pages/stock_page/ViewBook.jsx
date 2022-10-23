@@ -1,25 +1,38 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import TransactionTable from "../../components/TransactionTable";
-import { borrowBook, returnBook } from "../../redux/stockReducer";
-const ACCOUNT_ID = "78924345";
+import { borrowBook, returnBook, removeBook } from "../../redux/stockReducer";
 
 const ViewBook = () => {
+  const navigate = useNavigate();
   const { bookId } = useParams();
   const dispatch = useDispatch();
   const stock = useSelector((state) => state.stock.stock);
   const book = stock.find((b) => b.id == bookId);
 
-  console.log(book.isBorrowed);
-  console.log(book);
-
   function handleBorrow() {
-    if (!book.isBorrowed) dispatch(borrowBook(bookId, ACCOUNT_ID));
+    if (!book.isBorrowed) {
+      const accountId = prompt("Account number?");
+      if (accountId) {
+        dispatch(borrowBook(bookId, accountId));
+      }
+    }
   }
 
   function handleReturn() {
-    if (book.isBorrowed) dispatch(returnBook(bookId, ACCOUNT_ID));
+    if (book.isBorrowed) {
+      const accountId = prompt("Account number?");
+      if (accountId) {
+        dispatch(returnBook(bookId, accountId));
+      }
+    }
+  }
+  function handleRemove() {
+    if (window.confirm("Are you sure?")) {
+      dispatch(removeBook(bookId));
+      navigate("/stock");
+    }
   }
 
   return (
@@ -84,6 +97,11 @@ const ViewBook = () => {
             onClick={handleReturn}
             className="bg-secondaryOrange hover:bg-primaryOrange text-white p-3 font-bold rounded-full w-32">
             Return
+          </button>
+          <button
+            onClick={handleRemove}
+            className="bg-secondaryOrange hover:bg-primaryOrange text-white p-3 font-bold rounded-full w-32">
+            Remove
           </button>
         </div>
       </div>

@@ -10,6 +10,7 @@ const TransactionTable = ({ history }) => {
       <td className="pr-2 pl-10">{row.date}</td>
     </tr>
   ));
+
   return (
     <div className=" h-[700px] overflow-y-auto overflow-x-hidden min-w-full border-black border-2">
       <table className="">

@@ -16,8 +16,11 @@ function borrowBook(bookId, accountId) {
     payload: { bookId, accountId },
   };
 }
+function removeBook(bookId) {
+  return { type: "REMOVE_BOOK", payload: bookId };
+}
 
-const DEFAULT_STATE = { stock: [], currentId: 0 };
+const DEFAULT_STATE = { stock: [], currentId: 0, transactionId: 0 };
 
 export default function stockReducer(state = DEFAULT_STATE, action) {
   switch (action.type) {
@@ -29,6 +32,7 @@ export default function stockReducer(state = DEFAULT_STATE, action) {
         actions: [],
       };
       return {
+        ...state,
         stock: [...state.stock, newBook],
         currentId: state.currentId + 1,
       };
@@ -38,6 +42,7 @@ export default function stockReducer(state = DEFAULT_STATE, action) {
         account: action.payload.accountId,
         transaction: "Return",
         date: new Date().toLocaleDateString(),
+        id: state.transactionId,
       };
       const foundBook = state.stock.find((b) => b.id == action.payload.bookId);
       const index = state.stock.indexOf(foundBook);
@@ -50,13 +55,18 @@ export default function stockReducer(state = DEFAULT_STATE, action) {
 
       let newStock = [...state.stock];
       newStock[index] = newBook;
-      return { ...state, stock: newStock };
+      return {
+        ...state,
+        stock: newStock,
+        transactionId: state.transactionId + 1,
+      };
     }
     case "BORROW_BOOK": {
       const newAction = {
         account: action.payload.accountId,
         transaction: "Borrow",
         date: new Date().toLocaleDateString(),
+        id: state.transactionId,
       };
       const foundBook = state.stock.find((b) => b.id == action.payload.bookId);
       const index = state.stock.indexOf(foundBook);
@@ -69,7 +79,22 @@ export default function stockReducer(state = DEFAULT_STATE, action) {
 
       let newStock = [...state.stock];
       newStock[index] = newBook;
-      return { ...state, stock: newStock };
+      return {
+        ...state,
+        stock: newStock,
+        transactionId: state.transactionId + 1,
+      };
+    }
+    case "REMOVE_BOOK": {
+      const foundBook = state.stock.find((b) => b.id == action.payload);
+      const index = state.stock.indexOf(foundBook);
+      let newStock = [...state.stock];
+      newStock.splice(index, 1);
+
+      return {
+        ...state,
+        stock: newStock,
+      };
     }
     default: {
       return state;
@@ -77,4 +102,4 @@ export default function stockReducer(state = DEFAULT_STATE, action) {
   }
 }
 
-export { addNewBook, borrowBook, returnBook };
+export { addNewBook, borrowBook, returnBook, removeBook };
