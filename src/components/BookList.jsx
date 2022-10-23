@@ -1,14 +1,20 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import Book from "./Book";
 
-const BookList = () => {
-  const stock = useSelector((state) => state).stock.stock;
-  const elements = stock.map((book) => <h1>{book.title}</h1>);
+const BookList = ({ books }) => {
+  const bookElements = books.map((book) => (
+    <Link
+      key={book.id}
+      to={`/book/${book.id}`}>
+      <Book
+        key={book.id}
+        book={book}
+      />
+    </Link>
+  ));
   return (
-    <div>
-      Book list
-      {elements}
-    </div>
+    <div className="flex flex-wrap gap-3 content-between">{bookElements}</div>
   );
 };
 

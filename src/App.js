@@ -3,38 +3,46 @@ import store from "./redux/store";
 import { Provider } from "react-redux";
 import Header from "./components/Header";
 
-import Home from "./pages/home_page/HomePage";
+import HomePage from "./pages/home_page/HomePage";
 import StockPage from "./pages/stock_page/StockPage";
 import AccountsPage from "./pages/accounts_page/AccountsPage";
 import ActionsPage from "./pages/actions_page/ActionsPage";
+import ViewBook from "./pages/stock_page/ViewBook";
 
 function App() {
   return (
     <Provider store={store}>
-      <div>
+      <div className="flex-col grow">
         <Header />
-        <Routes>
-          <Route
-            exact
-            path="/"
-            element={<Home />}
-          />
-          <Route
-            exact
-            path="/stock"
-            element={<StockPage />}
-          />
-          <Route
-            exact
-            path="/accounts"
-            element={<AccountsPage />}
-          />
-          <Route
-            exact
-            path="/actions"
-            element={<ActionsPage />}
-          />
-        </Routes>
+        <main className="">
+          <Routes>
+            <Route
+              exact
+              path="/"
+              element={<HomePage />}
+            />
+            <Route
+              exact
+              path="/stock"
+              element={<StockPage />}
+            />
+            <Route
+              exact
+              path="/book/:bookId"
+              element={<ViewBook />}
+            />
+            <Route
+              exact
+              path="/accounts"
+              element={<AccountsPage />}
+            />
+            <Route
+              exact
+              path="/actions"
+              element={<ActionsPage />}
+            />
+          </Routes>
+        </main>
       </div>
     </Provider>
   );
