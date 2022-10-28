@@ -1,33 +1,24 @@
 import React, { useState } from "react";
+import { isValidFilter } from ".././utils/bookUtils";
+
+const INIT_FILTER = {
+  title: "",
+  author: "",
+  minYear: "",
+  maxYear: "",
+};
 
 const FilterBooks = ({ onFilter }) => {
-  const [entry, setEntry] = useState({
-    title: "",
-    author: "",
-    minYear: "",
-    maxYear: "",
-    inStock: false,
-  });
+  const [entry, setEntry] = useState(INIT_FILTER);
   const [error, setError] = useState("");
   function onSubmit() {
-    const finalEntry = {
-      title: entry.title ? entry.title : null,
-      author: entry.author ? entry.author : null,
-      minYear: entry.minYear ? entry.minYear : null,
-      maxYear: entry.maxYear ? entry.maxYear : null,
-      inStock: entry.inStock ? entry.inStock : null,
-    };
-    onFilter(finalEntry);
+    if (isValidFilter(entry)) onFilter(entry);
+    else alert("Please Enter a valid filter");
   }
   function onClear() {
-    setEntry({
-      title: "",
-      author: "",
-      minYear: "",
-      maxYear: "",
-      inStock: false,
-    });
+    setEntry(INIT_FILTER);
   }
+
   return (
     <form
       onSubmit={(e) => {
@@ -107,24 +98,6 @@ const FilterBooks = ({ onFilter }) => {
           type="number"
           placeholder="ex, 2022"
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        />
-      </div>
-      <div className="flex gap-3 p-1 items-center justify-between">
-        <label
-          htmlFor="inStock"
-          className="text-xl">
-          In Stock:
-        </label>
-        <input
-          id="inStock"
-          type="checkbox"
-          checked={entry.inStock}
-          onChange={(e) =>
-            setEntry((prevEntry) => {
-              return { ...prevEntry, inStock: e.target.checked };
-            })
-          }
-          className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
         />
       </div>
 

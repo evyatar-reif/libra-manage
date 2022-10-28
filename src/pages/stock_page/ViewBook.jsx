@@ -1,39 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import TransactionTable from "../../components/TransactionTable";
-import { borrowBook, returnBook, removeBook } from "../../redux/stockReducer";
+import { borrowBook, returnBook } from "../../redux/stockReducer";
+import QRCode from "react-qr-code";
+import Modal from "../../components/Modal";
 
 const ViewBook = () => {
   const navigate = useNavigate();
   const { bookId } = useParams();
   const dispatch = useDispatch();
-  const stock = useSelector((state) => state.stock.stock);
+  const stock = useSelector((state) => state.stock.allBooks);
   const book = stock.find((b) => b.id == bookId);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   function handleBorrow() {
     if (!book.isBorrowed) {
-      const accountId = prompt("Account number?");
-      if (accountId) {
-        dispatch(borrowBook(bookId, accountId));
-      }
+      dispatch(borrowBook(bookId));
+    } else {
+      alert("Book is already borrowed");
     }
   }
 
   function handleReturn() {
     if (book.isBorrowed) {
-      const accountId = prompt("Account number?");
-      if (accountId) {
-        dispatch(returnBook(bookId, accountId));
-      }
+      dispatch(returnBook(bookId));
+    } else {
+      alert("Book is already returned");
     }
   }
-  function handleRemove() {
-    if (window.confirm("Are you sure?")) {
-      dispatch(removeBook(bookId));
-      navigate("/stock");
-    }
-  }
+  function handleRemove() {}
+
+  console.log(book.isBorrowed);
 
   return (
     <div className="flex p-3 bg-white">
@@ -44,7 +43,7 @@ const ViewBook = () => {
       />
       <div className="flex flex-col ml-4 gap-5 mr-4">
         <h1 className="text-3xl font-bold">{book.title}</h1>
-        <div>
+        <div onClick={() => setIsModalOpen(true)}>
           <span className="text-lg">Id</span>
           <p className="text-xl">{book.id}</p>
         </div>
@@ -52,7 +51,11 @@ const ViewBook = () => {
           <span className="text-lg">Author</span>
           <p>
             {book.authors.map((c) => (
-              <span className="text-xl">{c}</span>
+              <span
+                key={c}
+                className="text-xl">
+                {c}
+              </span>
             ))}
           </p>{" "}
         </div>
@@ -66,7 +69,11 @@ const ViewBook = () => {
           <span className="text-lg">Catrgories</span>
           <p>
             {book.categories.map((c) => (
-              <span className="text-xl">{c}</span>
+              <span
+                key={c}
+                className="text-xl">
+                {c}
+              </span>
             ))}
           </p>
         </div>
@@ -106,8 +113,20 @@ const ViewBook = () => {
         </div>
       </div>
       <div className="h-1/2">
-        <TransactionTable history={book.actions} />
+        <TransactionTable
+          id={bookId}
+          type="b"
+        />
       </div>
+
+      <Modal
+        open={isModalOpen}
+        closeOnOutsideClick={true}
+        onClose={() => setIsModalOpen(false)}>
+        <div className="bg-white p-3">
+          <QRCode value={book.id} />
+        </div>
+      </Modal>
     </div>
   );
 };

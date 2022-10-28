@@ -1,4 +1,6 @@
 import stockReducer from "./stockReducer";
+import accountReducer from "./accountReducer";
+
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 
 import storage from "redux-persist/lib/storage";
@@ -12,6 +14,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   stock: stockReducer,
+  accounts: accountReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

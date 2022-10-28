@@ -22,7 +22,7 @@ const Book = ({ book, preview }) => {
           <div>
             <p
               className={`bg-${
-                book.isBorrowed ? "error" : "success"
+                book.isBorrowed ? `error` : `success`
               } rounded-full text-center mt-5 mr-2`}>
               {book.isBorrowed ? "Out of stock" : "In stock"}
             </p>
