@@ -1,7 +1,6 @@
 import React from "react";
 
 const Book = ({ book, preview }) => {
-  console.log(book.isBorrowed);
   return (
     <div className="shadow-2xl flex border-black border-2 pl-3 pt-3 pb-3 max-w-xs rounded-lg">
       <img
@@ -23,9 +22,7 @@ const Book = ({ book, preview }) => {
           <div>
             <p
               className={`bg-${
-                book.isBorrowed
-                  ? "error"
-                  : "successlllllllllllllllllllllllllllll"
+                book.isBorrowed ? `error` : `success`
               } rounded-full text-center mt-5 mr-2`}>
               {book.isBorrowed ? "Out of stock" : "In stock"}
             </p>
