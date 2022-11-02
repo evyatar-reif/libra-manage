@@ -1,10 +1,10 @@
 const DEFAULT_STATE = { allBooks: [], bookTransactions: [] };
 
 function borrowBook(bookId, accountId) {
-  return { type: "BORROW_BOOK", payload: bookId };
+  return { type: "BORROW_BOOK", payload: { bookId, accountId } };
 }
 function returnBook(bookId, accountId) {
-  return { type: "RETURN_BOOK", payload: bookId };
+  return { type: "RETURN_BOOK", payload: { bookId, accountId } };
 }
 
 function makeAvailable(bookId) {
@@ -42,7 +42,7 @@ export default function stockReducer(state = DEFAULT_STATE, action) {
     const newAction = {
       type: type,
       id: generateId("transaction"),
-      bookId: action.payload,
+      bookId: action.payload.bookId,
       accountId: action.payload.accountId ? action.payload.accountId : "SYSTEM",
       date: new Date().toLocaleDateString(),
     };
@@ -52,7 +52,9 @@ export default function stockReducer(state = DEFAULT_STATE, action) {
 
   switch (action.type) {
     case "BORROW_BOOK": {
-      const foundBook = state.allBooks.find((b) => b.id == action.payload);
+      const foundBook = state.allBooks.find(
+        (b) => b.id == action.payload.bookId
+      );
       const index = state.allBooks.indexOf(foundBook);
       const newBook = { ...foundBook, isBorrowed: true };
 
@@ -68,7 +70,9 @@ export default function stockReducer(state = DEFAULT_STATE, action) {
       };
     }
     case "RETURN_BOOK": {
-      const foundBook = state.allBooks.find((b) => b.id == action.payload);
+      const foundBook = state.allBooks.find(
+        (b) => b.id == action.payload.bookId
+      );
       const index = state.allBooks.indexOf(foundBook);
       const newBook = { ...foundBook, isBorrowed: false };
 

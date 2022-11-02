@@ -8,6 +8,7 @@ import HomePage from "./pages/home_page/HomePage";
 import StockPage from "./pages/stock_page/StockPage";
 import AccountsPage from "./pages/accounts_page/AccountsPage";
 import ViewBook from "./pages/stock_page/ViewBook";
+import ViewAccount from "./components/ViewAccount";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
                 path="/"
                 element={<HomePage />}
               />
+
               <Route
                 exact
                 path="/stock"
@@ -31,13 +33,19 @@ function App() {
               />
               <Route
                 exact
-                path="/book/:bookId"
+                path="/stock/:bookId"
                 element={<ViewBook />}
               />
+
               <Route
                 exact
                 path="/accounts"
                 element={<AccountsPage />}
+              />
+              <Route
+                exact
+                path="/accounts/:accountId"
+                element={<ViewAccount />}
               />
             </Routes>
           </main>

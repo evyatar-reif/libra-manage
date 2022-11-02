@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import TransactionTable from "../../components/TransactionTable";
-import { borrowBook, returnBook, makeUnavailable } from "../../redux/stockReducer";
+import TransactionTable from "../../components/TransactionsTable";
+import { borrowBook, returnBook } from "../../redux/stockReducer";
 import QRCode from "react-qr-code";
 import Modal from "../../components/Modal";
 
 const ViewBook = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { bookId } = useParams();
   const dispatch = useDispatch();
   const stock = useSelector((state) => state.stock.allBooks);
@@ -17,7 +17,8 @@ const ViewBook = () => {
 
   function handleBorrow() {
     if (!book.isBorrowed) {
-      dispatch(borrowBook(bookId));
+      const accountId = prompt("Enter Account Number");
+      if (accountId) dispatch(borrowBook(bookId, accountId));
     } else {
       alert("Book is already borrowed");
     }
@@ -25,15 +26,12 @@ const ViewBook = () => {
 
   function handleReturn() {
     if (book.isBorrowed) {
-      dispatch(returnBook(bookId));
+      const accountId = prompt("Enter Account Number");
+      if (accountId) dispatch(returnBook(bookId, accountId));
     } else {
       alert("Book is already returned");
     }
   }
-  // function handleRemove() {
-  //   dispatch(makeUnavailable(bookId));
-  //   navigate("/stock")
-  // }
 
   console.log(book.isBorrowed);
 
@@ -46,9 +44,15 @@ const ViewBook = () => {
       />
       <div className="flex flex-col ml-4 gap-5 mr-4">
         <h1 className="text-3xl font-bold">{book.title}</h1>
-        <div onClick={() => setIsModalOpen(true)}>
+        <div>
           <span className="text-lg">Id</span>
           <p className="text-xl">{book.id}</p>
+          <span
+            onClick={() => setIsModalOpen(true)}
+            className="font-bold  hover:underline cursor-pointer">
+            {" "}
+            open QR
+          </span>
         </div>
         <div>
           <span className="text-lg">Author</span>
