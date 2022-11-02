@@ -7,7 +7,6 @@ import Header from "./components/Header";
 import HomePage from "./pages/home_page/HomePage";
 import StockPage from "./pages/stock_page/StockPage";
 import AccountsPage from "./pages/accounts_page/AccountsPage";
-import ActionsPage from "./pages/actions_page/ActionsPage";
 import ViewBook from "./pages/stock_page/ViewBook";
 
 function App() {
@@ -39,11 +38,6 @@ function App() {
                 exact
                 path="/accounts"
                 element={<AccountsPage />}
-              />
-              <Route
-                exact
-                path="/actions"
-                element={<ActionsPage />}
               />
             </Routes>
           </main>

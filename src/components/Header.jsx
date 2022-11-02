@@ -45,14 +45,6 @@ const Header = () => {
             Accounts
           </button>
         </Link>
-        <Link to="/actions">
-          <button className="bg-secondaryOrange hover:bg-primaryOrange text-white p-3 font-bold rounded-full w-32">
-            Actions
-          </button>
-        </Link>
-        <button className="bg-secondaryOrange hover:bg-primaryOrange text-white p-3 font-bold rounded-full w-11">
-          {userImg}
-        </button>
       </nav>
     </header>
   );
