@@ -4,7 +4,7 @@ const Book = ({ book, preview }) => {
   return (
     <div className="shadow-2xl flex border-black border-2 pl-3 pt-3 pb-3 max-w-xs rounded-lg">
       <img
-        className="border-black border-2"
+        className="border-black border-2 max-h-[175px]"
         src={book.imageLinks.thumbnail}
         alt="cover"
       />
@@ -21,8 +21,8 @@ const Book = ({ book, preview }) => {
         {
           <div>
             <p
-              className={`bg-${
-                book.isBorrowed ? `error` : `success`
+              className={`${
+                book.isBorrowed ? `bg-error` : `bg-success`
               } rounded-full text-center mt-5 mr-2`}>
               {book.isBorrowed ? "Out of stock" : "In stock"}
             </p>

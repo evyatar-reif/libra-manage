@@ -1,7 +1,8 @@
 import React from "react";
+import SideNav from "../../components/SideNav"
 
 const AccountsPage = () => {
-  return <div>AccountPage</div>;
+  return <main><SideNav/></main>;
 };
 
 export default AccountsPage;

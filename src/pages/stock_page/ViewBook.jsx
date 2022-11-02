@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import TransactionTable from "../../components/TransactionTable";
-import { borrowBook, returnBook } from "../../redux/stockReducer";
+import { borrowBook, returnBook, makeUnavailable } from "../../redux/stockReducer";
 import QRCode from "react-qr-code";
 import Modal from "../../components/Modal";
 
@@ -30,7 +30,10 @@ const ViewBook = () => {
       alert("Book is already returned");
     }
   }
-  function handleRemove() {}
+  // function handleRemove() {
+  //   dispatch(makeUnavailable(bookId));
+  //   navigate("/stock")
+  // }
 
   console.log(book.isBorrowed);
 
@@ -105,11 +108,11 @@ const ViewBook = () => {
             className="bg-secondaryOrange hover:bg-primaryOrange text-white p-3 font-bold rounded-full w-32">
             Return
           </button>
-          <button
+          {/* <button
             onClick={handleRemove}
             className="bg-secondaryOrange hover:bg-primaryOrange text-white p-3 font-bold rounded-full w-32">
-            Remove
-          </button>
+            Make Unavailable
+          </button> */}
         </div>
       </div>
       <div className="h-1/2">
