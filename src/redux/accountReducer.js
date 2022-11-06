@@ -3,7 +3,7 @@ const DEFAULT_STATE = {
     {
       name: "SYSTEM",
       id: "SYSTEM",
-      phoneNumber: "",
+      phoneNumber: "000000000",
     },
   ],
   accountTransactions: [],

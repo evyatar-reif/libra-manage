@@ -17,7 +17,7 @@ const BookList = ({ books }) => {
     </Link>
   ));
   return (
-    <div className="flex flex-wrap gap-3 content-between">{bookElements}</div>
+    <div className='flex flex-wrap gap-3 content-between'>{bookElements}</div>
   );
 };
 
