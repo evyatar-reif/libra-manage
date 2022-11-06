@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
-import SideNav from "../../components/SideNav";
-import ViewAccount from "../../components/ViewAccount";
+import SideNav from "./SideNav";
+import ViewAccount from "./ViewAccount";
 import Modal from "../../components/Modal";
-import AddAccount from "../../components/AddAccount";
-import SearchAccount from "../../components/SearchAccount";
+import AddAccount from "./AddAccount";
+import SearchAccount from "./SearchAccount";
 import { addAccount } from "../../redux/accountReducer";
 
 const AccountsPage = () => {
@@ -38,6 +38,7 @@ const AccountsPage = () => {
       return { ...prev, search: false };
     });
   }
+
   return (
     <main className="flex">
       <SideNav
@@ -53,7 +54,7 @@ const AccountsPage = () => {
         }
       />
 
-      {/* <ViewAccount account={account} /> */}
+      <Outlet/>
 
       <Modal
         open={modalState.add}

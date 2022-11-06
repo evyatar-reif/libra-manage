@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import Modal from "./Modal";
+import Modal from "../../components/Modal";
 import QRCode from "react-qr-code";
-import TransactionTable from "./TransactionsTable";
-import BookList from "./BookList";
+import TransactionTable from "../../components/TransactionsTable";
+import BookList from "../../components/BookList";
 
 const ViewAccount = () => {
   const { accountId } = useParams();
